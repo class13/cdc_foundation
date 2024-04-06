@@ -1,0 +1,3 @@
+- Set up debezium connector 
+- Set up full cdc foundation
+- Setup kotlin service
