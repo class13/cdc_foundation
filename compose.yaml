@@ -51,7 +51,7 @@ services:
       - "8083:8083"
     image: confluentinc/cp-kafka-connect:7.1.0-1-ubi8
     environment:
-      CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components
+      CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components,/home/appuser
       CONNECT_BOOTSTRAP_SERVERS: "kafka:9092"
       CONNECT_GROUP_ID: "kafka-connect-1"
       CONNECT_CONFIG_STORAGE_TOPIC: "kafka-connect-config"
@@ -70,7 +70,8 @@ services:
       - bash
       - -c
       - |
-        confluent-hub install --no-prompt neo4j/kafka-connect-neo4j:2.0.2
+        wget https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/2.6.0.Final/debezium-connector-postgres-2.6.0.Final-plugin.tar.gz
+        tar -xvzf debezium-connector-postgres-2.6.0.Final-plugin.tar.gz
         /etc/confluent/docker/run
     depends_on:
       - kafka

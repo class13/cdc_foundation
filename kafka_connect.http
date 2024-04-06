@@ -1,2 +1,9 @@
-### Get
+### GET CONNECTORS
 GET http://10.0.0.3:8083/connectors
+
+
+### GET PLUGINS
+GET http://10.0.0.3:8083/connector-plugins
+
+### VALIDATE THE CONFIG
+PUT http://10.0.0.3:8083/connector-plugins/(string:name)/config/validate
