@@ -1,6 +1,8 @@
 services:
   postgres:
     image: postgres:latest
+    hostname: postgres
+    container_name: postgres
     ports:
       - 5432:5432
     volumes:
@@ -9,6 +11,10 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_DB=cdc_foundation
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.2
     hostname: zookeeper
@@ -29,7 +35,7 @@ services:
       - "29092:29092"
       - "9999:9999"
     environment:
-      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:19092,EXTERNAL://${DOCKER_HOST_IP:-10.0.0.3}:9092,DOCKER://host.docker.internal:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
@@ -44,6 +50,22 @@ services:
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
     depends_on:
       - zookeeper
+  init-kafka:
+    image: confluentinc/cp-kafka:7.3.2
+    depends_on:
+      - kafka
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: |
+      "
+      # blocks until kafka is reachable
+      kafka-topics --bootstrap-server kafka:29092 --list
+      
+      echo -e 'Creating kafka topics'
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic cdc_monolog --replication-factor 1 --partitions 1
+      
+      echo -e 'Successfully created the following topics:'
+      kafka-topics --bootstrap-server kafka:29092 --list
+      "
   kafka-connect:
     hostname: "kafka_connect"
     container_name: "kafka_connect"
@@ -52,7 +74,7 @@ services:
     image: confluentinc/cp-kafka-connect:7.1.0-1-ubi8
     environment:
       CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components,/home/appuser
-      CONNECT_BOOTSTRAP_SERVERS: "kafka:9092"
+      CONNECT_BOOTSTRAP_SERVERS: "kafka:29092"
       CONNECT_GROUP_ID: "kafka-connect-1"
       CONNECT_CONFIG_STORAGE_TOPIC: "kafka-connect-config"
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
@@ -72,7 +94,52 @@ services:
       - |
         wget https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/2.6.0.Final/debezium-connector-postgres-2.6.0.Final-plugin.tar.gz
         tar -xvzf debezium-connector-postgres-2.6.0.Final-plugin.tar.gz
-        /etc/confluent/docker/run
+        /etc/confluent/docker/run &
+        #
+        # Wait for Kafka Connect listener
+          echo "Waiting for Kafka Connect to start listening on localhost ⏳"
+        while : ; do
+          curl_status=$$(curl -s -o /dev/null -w %{http_code} http://localhost:8083/connectors)
+          echo -e $$(date) " Kafka Connect listener HTTP state: " $$curl_status " (waiting for 200)"
+          if [ $$curl_status -eq 200 ] ; then
+          break
+          fi
+          sleep 5
+          done
+          
+          echo -e "\n--\n+> Creating Data Generator source"
+          curl -s -X PUT -H  "Content-Type:application/json" http://localhost:8083/connectors/cdc_foundation_connector/config \
+          -d '{
+            "name": "cdc_foundation_connector",
+            "slot.name": "cdc_foundation_connector",
+            "plugin.name": "pgoutput",
+            
+            "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+            "tombstones.on.delete": "false",
+            "snapshot.mode": "initial",
+            "event.processing.failure.handling.mode": "fail",
+            
+            "tasks.max": "1",
+            
+            "database.hostname": "postgres",
+            "database.port": "5432",
+            "database.user": "postgres",
+            "database.password": "postgres",
+            "database.dbname": "cdc_foundation",
+            "topic.prefix": "placeholder",
+            
+            "transforms":"dropPrefix",
+            "transforms.dropPrefix.type":"org.apache.kafka.connect.transforms.RegexRouter",
+            "transforms.dropPrefix.regex":"(.*)",
+            "transforms.dropPrefix.replacement":"cdc_monolog",
+            
+            "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+            "value.converter.schemas.enable": "false",
+            
+            "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+            "key.converter.schemas.enable": "false"
+          }'
+          sleep infinity
     depends_on:
       - kafka
 volumes:

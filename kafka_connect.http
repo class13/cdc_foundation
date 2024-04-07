@@ -1,9 +1,46 @@
 ### GET CONNECTORS
 GET http://10.0.0.3:8083/connectors
 
-
 ### GET PLUGINS
 GET http://10.0.0.3:8083/connector-plugins
 
 ### VALIDATE THE CONFIG
 PUT http://10.0.0.3:8083/connector-plugins/(string:name)/config/validate
+
+### DELETE CONNECTOR
+DELETE http://10.0.0.3:8083/connectors/cdc_foundation_connector
+
+### PUT CONFIG
+PUT http://10.0.0.3:8083/connectors/cdc_foundation_connector/config
+Content-Type: application/json
+
+{
+"name": "cdc_foundation_connector",
+"slot.name": "cdc_foundation_connector",
+"plugin.name": "pgoutput",
+
+"connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+"tombstones.on.delete": "false",
+"snapshot.mode": "initial",
+"event.processing.failure.handling.mode": "fail",
+
+"tasks.max": "1",
+
+"database.hostname": "postgres",
+"database.port": "5432",
+"database.user": "postgres",
+"database.password": "postgres",
+"database.dbname": "cdc_foundation",
+"topic.prefix": "placeholder",
+
+"transforms":"dropPrefix",
+"transforms.dropPrefix.type":"org.apache.kafka.connect.transforms.RegexRouter",
+"transforms.dropPrefix.regex":"(.*)",
+"transforms.dropPrefix.replacement":"cdc_monolog",
+
+"value.converter": "org.apache.kafka.connect.json.JsonConverter",
+"value.converter.schemas.enable": "false",
+
+"key.converter": "org.apache.kafka.connect.json.JsonConverter",
+"key.converter.schemas.enable": "false"
+}
