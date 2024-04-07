@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class CdcFoundationServiceApplication
+class CDCFoundationServiceApplication
 
 fun main(args: Array<String>) {
-    runApplication<CdcFoundationServiceApplication>(*args)
+    runApplication<CDCFoundationServiceApplication>(*args)
 }
