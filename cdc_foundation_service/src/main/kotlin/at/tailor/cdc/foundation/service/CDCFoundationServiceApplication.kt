@@ -1,4 +1,4 @@
-package at.tailor.cdc_foundation_service
+package at.tailor.cdc.foundation.service
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

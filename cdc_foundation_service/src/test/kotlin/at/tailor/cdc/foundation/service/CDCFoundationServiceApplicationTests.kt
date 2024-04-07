@@ -1,4 +1,4 @@
-package at.tailor.cdc_foundation_service
+package at.tailor.cdc.foundation.service
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
