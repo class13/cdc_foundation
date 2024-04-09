@@ -19,7 +19,6 @@ import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 import kotlin.jvm.optionals.getOrNull
 
-// todo: test this
 /**
  Listens to the `advert_history_hook_events` topic and executes the hook, but only
  if the event is relevant. An event is relevant if the status was updated.
@@ -53,6 +52,7 @@ class DWHAggregateEventListener(
             articleId.toString(),
             objectMapper.writeValueAsString(event),
         )
+        kafkaTemplate.flush()
     }
 
     private fun convertOperation(message: CDCMonologEventMessage): DWHAggregateEvent.Operation? {

@@ -47,6 +47,7 @@ class CDCMonologEventListener (
             tableSubscribers[message.source.table]?.forEach { topic ->
                 try {
                     kafkaTemplate.send(topic, record.key(), record.value())
+                    kafkaTemplate.flush()
                 } catch (e: Exception) {
                     // if a handler fails, other handlers should still attempt to process that event
                     LOG.error("${topic::class.qualifiedName} failed to process cdc monolog event.", e)

@@ -9,13 +9,13 @@ data class ArticleEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    val id: Long,
+    var id: Long,
 
     @Column(name = "title")
     val title: String,
 
     @Column(name = "status")
-    val status: String,
+    var status: String,
 
     @ManyToMany
     @JoinTable(

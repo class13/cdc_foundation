@@ -12,10 +12,10 @@ data class CategoryEntity(
     val id: Long = -1,
 
     @Column(name = "name")
-    val name: String,
+    var name: String,
 
     @ManyToMany(mappedBy = "categories")
-    val articles: Set<ArticleEntity>
+    val articles: Set<ArticleEntity> = setOf()
 ) {
     companion object {
         const val TABLE_NAME = "category"
