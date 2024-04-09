@@ -8,6 +8,4 @@ class CDCFoundationServiceApplication
 
 fun main(args: Array<String>) {
     runApplication<CDCFoundationServiceApplication>(*args)
-    // todo: needs an event listener
-    // todo: needs something that creates events
 }
