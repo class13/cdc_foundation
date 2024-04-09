@@ -15,4 +15,14 @@ create table if not exists article_status_history(
     timestamp timestamp not null
 );
 
+create table if not exists category(
+    id serial primary key,
+    name text
+);
+
+create table if not exists article_category(
+  category_id int not null references category(id),
+  article_id int not null references  article(id),
+  constraint article_category_pk primary key (category_id, article_id)
+)
 

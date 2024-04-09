@@ -13,7 +13,7 @@ class DWHAggregateEventRouter: CDCMonologEventRouter {
         const val TARGET_TOPIC = "dwh_article_raw"
     }
     override fun subscribedTables(): Set<String> {
-        return setOf("article")
+        return setOf("article", "article_category", "category")
     }
 
     override fun targetTopic(): String {

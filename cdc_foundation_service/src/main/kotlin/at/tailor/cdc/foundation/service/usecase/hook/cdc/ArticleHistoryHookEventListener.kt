@@ -48,10 +48,7 @@ class ArticleHistoryHookEventListener(
                         articleBefore.id,
                         articleBefore.status,
                         articleAfter.status,
-                        message.tsMs
-                            .let { it.toLong() }
-                            .let { Instant.ofEpochMilli(it) }
-                            .let { LocalDateTime.ofInstant(it, ZoneId.systemDefault()) }
+                        message.timestamp
                     )
                 )
             }
