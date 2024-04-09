@@ -66,6 +66,9 @@ services:
       kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic dwh_article --replication-factor 1 --partitions 1
       kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic dwh_article_aggregate --replication-factor 1 --partitions 1
       
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic kafka_outbox --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic article_leads --replication-factor 1 --partitions 1
+      
       echo -e 'Successfully created the following topics:'
       kafka-topics --bootstrap-server kafka:29092 --list
       "

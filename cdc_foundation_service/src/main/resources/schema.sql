@@ -24,5 +24,13 @@ create table if not exists article_category(
   category_id int not null references category(id),
   article_id int not null references  article(id),
   constraint article_category_pk primary key (category_id, article_id)
-)
+);
+
+create table if not exists kafka_outbox(
+    id serial primary key,
+    timestamp timestamptz,
+    topic text,
+    value text,
+    key text
+);
 
