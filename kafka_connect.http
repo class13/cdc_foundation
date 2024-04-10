@@ -1,17 +1,17 @@
 ### GET CONNECTORS
-GET http://10.0.0.3:8083/connectors
+GET http://127.0.0.1:8083/connectors
 
 ### GET PLUGINS
-GET http://10.0.0.3:8083/connector-plugins
+GET http://127.0.0.1:8083/connector-plugins
 
 ### VALIDATE THE CONFIG
-PUT http://10.0.0.3:8083/connector-plugins/(string:name)/config/validate
+PUT http://127.0.0.1:8083/connector-plugins/(string:name)/config/validate
 
 ### DELETE CONNECTOR
-DELETE http://10.0.0.3:8083/connectors/cdc_foundation_connector
+DELETE http://127.0.0.1:8083/connectors/cdc_foundation_connector
 
 ### PUT CONFIG
-PUT http://10.0.0.3:8083/connectors/cdc_foundation_connector/config
+PUT http://127.0.0.1:8083/connectors/cdc_foundation_connector/config
 Content-Type: application/json
 
 {
