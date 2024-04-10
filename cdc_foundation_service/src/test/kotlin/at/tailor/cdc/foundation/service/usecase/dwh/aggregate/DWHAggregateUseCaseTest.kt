@@ -23,8 +23,6 @@ class DWHAggregateUseCaseTest {
 
     @Test
     fun `on create update or delete on article events are sent`() {
-        // todo: actually this is too fast
-        // todo: need to wait in between each thing or the entity might already be deleted at then end
         transactionTemplate.propagationBehavior = TransactionTemplate.PROPAGATION_REQUIRES_NEW
         val categoryId = transactionTemplate.execute { action ->
             CategoryEntity(name = "category").let { categoryRepository.save(it) }.id
@@ -37,6 +35,7 @@ class DWHAggregateUseCaseTest {
             ).let { articleRepository.save(it) }
                 .let { it.id }
         }!!
+        Thread.sleep(2000)
 
         transactionTemplate.execute {
             val articleEntity = articleRepository.findByIdOrNull(articleId)!!
@@ -45,22 +44,27 @@ class DWHAggregateUseCaseTest {
             articleEntity.categories.add(categoryEntity)
             articleEntity.let { articleRepository.save(it) }
         }
+        Thread.sleep(2000)
         transactionTemplate.execute {
             val categoryEntity = categoryRepository.findByIdOrNull(categoryId)!!
             categoryEntity.name = "renamed"
             categoryRepository.save(categoryEntity)
         }
+        Thread.sleep(2000)
+
         transactionTemplate.execute {
             val articleEntity = articleRepository.findByIdOrNull(articleId)!!
             articleEntity.categories.clear()
             articleEntity.let { articleRepository.save(it) }
         }
+        Thread.sleep(2000)
+
         transactionTemplate.execute {
             val articleEntity = articleRepository.findByIdOrNull(articleId)!!
             articleEntity.status = "PUBLISHED"
             articleEntity.let { articleRepository.save(it) }
         }
-
+        Thread.sleep(2000)
 
 
         transactionTemplate.execute {
