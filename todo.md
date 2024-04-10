@@ -1,5 +1,2 @@
-- Implement tests that showcase each use case
-- Dockerize kafkacat
-- Write down kafkacat for monitoring
 - Bug: Currently its only possible to connect to kafka from the host by manually entering 10.0.0.3 as advertised listener
 - Bug: When starting all services kafka sometimes is not finding zookeeper because it aint ready yet

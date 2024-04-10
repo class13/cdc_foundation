@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component
 import kotlin.jvm.optionals.getOrNull
 
 /**
- Listens to the `advert_history_hook_events` topic and executes the hook, but only
+ Listens to the `article_history_hook_events` topic and executes the hook, but only
  if the event is relevant. An event is relevant if the status was updated.
  */
 @Component

@@ -5,13 +5,13 @@ import org.springframework.stereotype.Component
 
 /**
  * Configures the `CDCMonologEventListener` to re-reoute all events of the `article` table
- * to the `advert_history_hook_events` topic.
+ * to the `article_history_hook_events` topic.
  */
 
 @Component
 class ArticleHistoryHookRouter: CDCMonologEventRouter {
     companion object {
-        const val TARGET_TOPIC = "advert_history_hook_events"
+        const val TARGET_TOPIC = "article_history_hook_events"
     }
 
     override fun subscribedTables(): Set<String> {
