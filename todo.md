@@ -1,1 +1,1 @@
-
+- extract http rest service, so i can test with curl calls
