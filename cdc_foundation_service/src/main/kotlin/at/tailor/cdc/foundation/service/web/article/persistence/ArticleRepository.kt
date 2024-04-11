@@ -1,4 +1,4 @@
-package at.tailor.cdc.foundation.service.usecase.dwh.aggregates.persistence
+package at.tailor.cdc.foundation.service.web.article.persistence
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository

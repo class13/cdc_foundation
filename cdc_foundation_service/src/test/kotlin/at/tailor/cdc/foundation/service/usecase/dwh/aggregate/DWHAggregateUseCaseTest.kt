@@ -1,10 +1,9 @@
 package at.tailor.cdc.foundation.service.usecase.dwh.aggregate
 
-import at.tailor.cdc.foundation.service.usecase.dwh.aggregates.persistence.ArticleEntity
-import at.tailor.cdc.foundation.service.usecase.dwh.aggregates.persistence.ArticleRepository
-import at.tailor.cdc.foundation.service.usecase.dwh.aggregates.persistence.CategoryEntity
-import at.tailor.cdc.foundation.service.usecase.dwh.aggregates.persistence.CategoryRepository
-import org.junit.jupiter.api.Assertions.*
+import at.tailor.cdc.foundation.service.web.article.persistence.ArticleEntity
+import at.tailor.cdc.foundation.service.web.article.persistence.ArticleRepository
+import at.tailor.cdc.foundation.service.web.category.persistence.CategoryEntity
+import at.tailor.cdc.foundation.service.web.category.persistence.CategoryRepository
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest

@@ -3,10 +3,10 @@ package at.tailor.cdc.foundation.service.usecase.dwh.aggregates
 import at.tailor.cdc.foundation.service.common.cdc.model.CDCMonologEventMessage
 import at.tailor.cdc.foundation.service.usecase.dwh.aggregates.model.DWHAggregateEvent
 import at.tailor.cdc.foundation.service.usecase.dwh.aggregates.model.DWHArticleAggregate
-import at.tailor.cdc.foundation.service.usecase.dwh.aggregates.persistence.ArticleEntity
-import at.tailor.cdc.foundation.service.usecase.dwh.aggregates.persistence.ArticleRepository
-import at.tailor.cdc.foundation.service.usecase.dwh.aggregates.persistence.CategoryEntity
-import at.tailor.cdc.foundation.service.usecase.dwh.aggregates.persistence.CategoryRepository
+import at.tailor.cdc.foundation.service.web.article.persistence.ArticleEntity
+import at.tailor.cdc.foundation.service.web.article.persistence.ArticleRepository
+import at.tailor.cdc.foundation.service.web.category.persistence.CategoryEntity
+import at.tailor.cdc.foundation.service.web.category.persistence.CategoryRepository
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue

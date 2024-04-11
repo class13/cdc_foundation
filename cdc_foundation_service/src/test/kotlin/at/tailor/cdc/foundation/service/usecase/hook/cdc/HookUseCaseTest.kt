@@ -1,16 +1,14 @@
 package at.tailor.cdc.foundation.service.usecase.hook.cdc
 
-import at.tailor.cdc.foundation.service.usecase.dwh.aggregates.persistence.ArticleEntity
-import at.tailor.cdc.foundation.service.usecase.dwh.aggregates.persistence.ArticleRepository
+import at.tailor.cdc.foundation.service.web.article.persistence.ArticleEntity
+import at.tailor.cdc.foundation.service.web.article.persistence.ArticleRepository
 import at.tailor.cdc.foundation.service.usecase.hook.service.jpa.ArticleStatusHistoryEntity
 import at.tailor.cdc.foundation.service.usecase.hook.service.jpa.ArticleStatusHistoryRepository
-import at.tailor.cdc.foundation.service.usecase.outbox.KafkaService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.support.TransactionTemplate
-import java.util.*
 
 @SpringBootTest
 class HookUseCaseTest {

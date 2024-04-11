@@ -1,6 +1,7 @@
-package at.tailor.cdc.foundation.service.usecase.dwh.aggregates.persistence
+package at.tailor.cdc.foundation.service.web.article.persistence
 
-import at.tailor.cdc.foundation.service.usecase.dwh.aggregates.persistence.ArticleEntity.Companion.TABLE_NAME
+import at.tailor.cdc.foundation.service.web.category.persistence.CategoryEntity
+import at.tailor.cdc.foundation.service.web.article.persistence.ArticleEntity.Companion.TABLE_NAME
 import jakarta.persistence.*
 
 @Entity
