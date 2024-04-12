@@ -1,31 +1,31 @@
 package at.tailor.cdc.foundation.service.web.article.rest
 
+import at.tailor.cdc.foundation.service.web.article.service.ArticleService
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 
-@Controller
+@RestController
 @RequestMapping("/article")
-class ArticleController {
+class ArticleController(
+    val articleService: ArticleService
+) {
     @PostMapping
-    fun postArticle() {
-        // todo: implement
+    fun postArticle(@RequestBody article: CreateArticleDTO): ArticleDTO {
+        return articleService.createArticle(article.toServiceModel()).let{ ArticleDTO.of(it) }
     }
 
     @GetMapping
-    fun getArticles() {
-        // todo: implement
+    fun getArticles(): List<ArticleDTO> {
+        return articleService.getArticles().map { ArticleDTO.of(it) }
     }
 
-    @PutMapping
-    fun putArticle() {
-        // todo: implement
+    @PutMapping("/{id}")
+    fun putArticle(@PathVariable("id") id: Long, @RequestBody article: UpdateArticleDTO): ArticleDTO {
+        return articleService.updateArticle(article.toServiceModel(id)).let { ArticleDTO.of(it) }
     }
 
-    @GetMapping
-    fun getArticle() {
-        // todo: implement
+    @GetMapping("/{id}")
+    fun getArticle(@PathVariable("id") id: Long): ArticleDTO {
+        return articleService.getArticle(id).let { ArticleDTO.of(it) }
     }
 }

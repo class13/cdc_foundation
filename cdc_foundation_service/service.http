@@ -1,0 +1,46 @@
+### GET ARTICLES
+GET http://localhost:8080/article
+
+### POST ARTICLE
+POST http://localhost:8080/article
+Content-Type: application/json
+
+{
+  "title": "title",
+  "status": "PUBLISHED",
+  "categories": []
+}
+
+### PUT ARTICLE
+PUT http://localhost:8080/article/3
+Content-Type: application/json
+
+{
+  "id": 3,
+  "title": "title",
+  "status": "PUBLISHED",
+  "categories": [3,2,1]
+}
+
+### GET ARTICLE
+GET http://localhost:8080/article/3
+
+### GET CATEGORY
+GET http://localhost:8080/category
+
+### POST CATEGORY
+POST http://localhost:8080/category
+Content-Type: application/json
+
+{
+  "name": "Sports"
+}
+
+### PUT CATEGORY
+PUT http://localhost:8080/category/3
+Content-Type: application/json
+
+{
+  "id": 4,
+  "name": "Sports Resourt"
+}

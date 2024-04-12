@@ -17,10 +17,10 @@ class CategoryService(
 
     @Transactional
     fun createCategory(category: CreateCategoryModel): Category {
-        val entity = CategoryEntity(
+        var entity = CategoryEntity(
             name = category.name
         )
-        categoryRepository.save(entity)
+        entity = categoryRepository.save(entity)
         return Category.of(entity)
     }
 
@@ -30,6 +30,11 @@ class CategoryService(
         entity.name = category.name
         categoryRepository.save(entity)
         return Category.of(entity)
+    }
+
+    fun getCategory(id: Long): Category {
+        val entity = categoryRepository.findByIdOrNull(id) ?: throw ServiceModelNotFoundException()
+        return entity.let { Category.of(it) }
     }
 
 

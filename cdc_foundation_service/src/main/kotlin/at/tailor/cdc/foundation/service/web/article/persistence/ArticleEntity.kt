@@ -10,10 +10,10 @@ data class ArticleEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    var id: Long,
+    var id: Long = -1,
 
     @Column(name = "title")
-    val title: String,
+    var title: String,
 
     @Column(name = "status")
     var status: String,
@@ -24,7 +24,7 @@ data class ArticleEntity(
         joinColumns = [JoinColumn(name = "article_id", referencedColumnName = "id")],
         inverseJoinColumns = [JoinColumn(name = "category_id", referencedColumnName = "id")]
     )
-    val categories: MutableList<CategoryEntity> = mutableListOf()
+    var categories: MutableList<CategoryEntity> = mutableListOf()
 ) {
     companion object {
         const val TABLE_NAME = "article"
