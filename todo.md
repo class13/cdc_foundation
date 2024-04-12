@@ -1,1 +1,3 @@
-- extract http rest service, so i can test with curl calls
+- bring service to docker
+- finish up the readme.md
+- include interaction methods

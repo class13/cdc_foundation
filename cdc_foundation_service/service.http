@@ -8,22 +8,22 @@ Content-Type: application/json
 {
   "title": "title",
   "status": "PUBLISHED",
-  "categories": []
+  "categories": [1]
 }
 
 ### PUT ARTICLE
-PUT http://localhost:8080/article/3
+PUT http://localhost:8080/article/6
 Content-Type: application/json
 
 {
   "id": 3,
   "title": "title",
-  "status": "PUBLISHED",
-  "categories": [3,2,1]
+  "status": "DELETED",
+  "categories": []
 }
 
 ### GET ARTICLE
-GET http://localhost:8080/article/3
+GET http://localhost:8080/article/6
 
 ### GET CATEGORY
 GET http://localhost:8080/category
@@ -42,5 +42,5 @@ Content-Type: application/json
 
 {
   "id": 4,
-  "name": "Sports Resourt"
+  "name": "Other Sport"
 }
