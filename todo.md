@@ -1,3 +1,2 @@
-- bring service to docker
 - finish up the readme.md
 - include interaction methods

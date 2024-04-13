@@ -1,4 +1,13 @@
 services:
+  cdc-foundation-service:
+    build:
+      context: cdc_foundation_service
+    depends_on:
+      - kafka
+      - postgres
+    ports:
+      - "8080:8080"
+    network_mode: host
   postgres:
     image: postgres:latest
     hostname: postgres

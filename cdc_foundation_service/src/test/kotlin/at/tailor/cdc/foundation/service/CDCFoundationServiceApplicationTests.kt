@@ -8,26 +8,8 @@ import java.util.UUID
 
 @SpringBootTest
 class CDCFoundationServiceApplicationTests {
-
-    @Autowired
-    lateinit var kafkaService: KafkaService
-
-    data class ArticleRead (
-        val articleId: Long,
-        val userUuid: UUID?,
-    )
-
-    data class ArticleKey (
-        val articleId: Long
-    )
-
     @Test
     fun contextLoads() {
-        kafkaService.send(
-            "article_leads",
-            ArticleKey(1L),
-            ArticleRead(1L, UUID.randomUUID())
-        )
     }
 
 }

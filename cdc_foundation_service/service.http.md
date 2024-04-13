@@ -1,11 +1,11 @@
 ### GET ARTICLES
 ```bash
-docker run --rm appropriate/curl -X GET http://host.docker.internal:8080/article
+docker run --network=host --rm appropriate/curl -X GET http://localhost:8080/article
 ```
 
 ### POST ARTICLE
 ```bash
-docker run --rm appropriate/curl -X POST http://host.docker.internal:8080/article \
+docker run --network=host --rm appropriate/curl -X POST http://localhost:8080/article \
 -H "Content-Type: application/json" \
 -d '{
   "title": "title",
@@ -16,7 +16,7 @@ docker run --rm appropriate/curl -X POST http://host.docker.internal:8080/articl
 
 ### PUT ARTICLE
 ```bash
-docker run --network=host --rm appropriate/curl -X PUT http://host.docker.internal:8080/article/3 \
+docker run --network=host --rm appropriate/curl -X PUT http://localhost:8080/article/3 \
 -H "Content-Type: application/json" \
 -d '{
   "id": 3,
@@ -28,17 +28,17 @@ docker run --network=host --rm appropriate/curl -X PUT http://host.docker.intern
 
 ### GET ARTICLE
 ```bash
-docker run --rm appropriate/curl -X GET http://host.docker.internal:8080/article/3
+docker run --network=host --rm appropriate/curl -X GET http://localhost:8080/article/3
 ```
 
 ### GET CATEGORY
 ```bash
-docker run --rm appropriate/curl -X GET http://host.docker.internal:8080/category
+docker run --network=host --rm appropriate/curl -X GET http://localhost:8080/category
 ```
 
 ### POST CATEGORY
 ```bash
-docker run --rm appropriate/curl -X POST http://host.docker.internal:8080/category \
+docker run --network=host --rm appropriate/curl -X POST http://localhost:8080/category \
 -H "Content-Type: application/json" \
 -d '{
   "name": "Sports"
@@ -47,7 +47,7 @@ docker run --rm appropriate/curl -X POST http://host.docker.internal:8080/catego
 
 ### PUT CATEGORY
 ```bash
-docker run --rm appropriate/curl -X PUT http://localhost:8080/category/3 \
+docker run --network=host --rm appropriate/curl -X PUT http://localhost:8080/category/3 \
 -H "Content-Type: application/json" \
 -d '{
   "id": 4,
