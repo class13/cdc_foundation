@@ -1,6 +1,0 @@
-- https://github.com/conduktor/kafka-stack-docker-compose
-- https://docs.confluent.io/platform/current/connect/userguide.html
-- https://access.redhat.com/documentation/en-us/red_hat_amq_streams/2.3/html/kafka_configuration_properties/kafka-connect-configuration-properties-str
-- https://docs.confluent.io/platform/current/connect/references/restapi.html
-- [Install Debezium](https://debezium.io/documentation/reference/stable/install.html)
-- [Running Kafka Connect in Docker](https://developer.confluent.io/courses/kafka-connect/docker-containers/)

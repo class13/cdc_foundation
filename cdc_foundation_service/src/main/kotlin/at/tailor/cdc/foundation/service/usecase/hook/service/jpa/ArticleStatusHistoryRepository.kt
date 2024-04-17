@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ArticleStatusHistoryRepository: JpaRepository<ArticleStatusHistoryEntity, Long> {
-    fun findByArticleId(articleId: Long): List<ArticleStatusHistoryEntity>
+    fun findByArticleIdOrderByTimestampDesc(articleId: Long): List<ArticleStatusHistoryEntity>
 }

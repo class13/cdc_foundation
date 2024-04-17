@@ -21,4 +21,16 @@ class ArticleStatusHistoryService(
         )
         articleStatusHistoryRepository.save(articleStatusHistoryEntity)
     }
+
+    @Transactional
+    fun getArticleStatusHistory(articleId: Long): List<ArticleStatusHistory> {
+        return articleStatusHistoryRepository.findByArticleIdOrderByTimestampDesc(articleId).map {
+            ArticleStatusHistory(
+                articleId = it.articleId,
+                fromStatus = it.fromStatus,
+                toStatus = it.toStatus,
+                timestamp = it.timestamp,
+            )
+        }
+    }
 }
