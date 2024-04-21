@@ -1,11 +1,19 @@
 # CDC Foundation - Proof of Concept
 ## Description
-- [ ] write this section
+This repository includes a working proof of concept for the **CDC Foundation**. This includes setting up all necessary 
+services, and an application implementing examples for the CDC use-cases.
 
 ## Architecture
-- [ ] write this section
+[compose.yaml](compose.yaml) contains all necessary services for the **CDC Foundation**. This includes:
+- Kafka (including ZooKeeper)
+- Kafka Connect
+- Postgres
+- The `cdc_foundation_service`
 
-## Testing Use Cases
+The `cdc_foundation_service` module contains a Kotlin application running a REST api 
+and several Kafka listeners and producers. All example uses cases are implemented in this module.
+
+## Testing Use-Cases
 ### Hooks
 The example of the hook is to when an article status changes the transition is logged in a seperate table.
 
