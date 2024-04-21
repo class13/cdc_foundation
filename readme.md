@@ -227,4 +227,3 @@ Executing any kind of complex action within the **CDC Monolog Consumer** can lea
 
 ## Proof of Concept
 - [ ] write this section / reference other doc
-- [ ] include images
