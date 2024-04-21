@@ -17,16 +17,17 @@ and delivering them to a downstream system such as another microservice or a dat
 
 ## Use Cases of CDC
 ### The transactional outbox pattern
-- [ ] Make this to a refernce
 
-https://microservices.io/patterns/data/transactional-outbox.html  
 A service might need to commit changes to the database and send a message to Kafka within one single call. 
 But directly writing into the Kafka topic might lead to inconsistencies, 
 as the transaction might get rolled back, while the message would remain in the Kafka topic.  
 
-To solve this, instead of writing to Kafka directly, we write in an **Outbox table* instead. 
+To solve this, instead of writing to Kafka directly, we write in an **Outbox table** instead. 
 The write operation into this table is captured and is sent to Kafka asynchronously.  
 This pattern might also be convenient for delivering data to other downstream systems besides Kafka.
+
+To better understand the concept of the transaction outbox read 
+[this article](https://microservices.io/patterns/data/transactional-outbox.html) by Chris Richardson.
 
 ### Syncing data between systems
 #### Syncing data to a data warehouse
@@ -124,7 +125,7 @@ setting up a universal solution up once and then rarely touch it ever again.
 
 ## The CDC Foundation
 
-- [ ] Images goes here
+![CDC Foundation Overview](diagrams/cdc_foundation_overview.png)
 
 A simple universal CDC solution, involves a single Debezium connector, capturing all changes of the entire database.
 This connector writes those changes into a single Kafka topic (the **CDC Monolog**).   
@@ -141,7 +142,7 @@ can be implemented on top of a **Debezium CDC Foundation**.
 
 ### General
 
-- [ ] Images goes here
+![CDC Foundation Implementation General](diagrams/cdc_foundation_implementation_general.png)
 
 A Kafka consumer of the **CDC Monolog** has to process all changes of the database.  
 This is relatively expensive, therefore performance is a concern to prevent a bottleneck.
@@ -168,7 +169,7 @@ These **use-case consumers** do not even necessarily need to be implemented in t
 
 ### Transactional Outbox Pattern
 
-- [ ] Images goes here
+![Outbox](diagrams/cdc_foundation_outbox.png)
 
 Implementing a **Transactional Kafka Outbox** on top of the **CDC Foundation** is straight forward. 
 
@@ -193,7 +194,7 @@ for duplicating data to any other system.
 
 #### Providing row-level events
 
-- [ ] Images goes here
+![Row Level Events](diagrams/cdc_foundation_dwh_row.png)
 
 Capturing row-level changes and sending them to a **DWH (data warehouse)** is simple, 
 as the CDC Foundation already captures such events. 
@@ -203,7 +204,7 @@ A **DWH Sync Event Handler** subscribes to all relevant tables and re-routes the
 
 #### Providing aggregates
 
-- [ ] Images goes here
+![Aggregate Level Events](diagrams/cdc_foundation_dwh_aggregates.png)
 
 Sending enriched models, made up from data of multiple tables, is also possible.
  
@@ -214,7 +215,7 @@ This model is then sent to a new Kafka topic.
 
 ### Hooks
 
-- [ ] Images goes here
+![Hooks](diagrams/cdc_foundation_hook.png)
 
 Implementing hooks on top of the CDC Foundation involves implementing a **Hook Event Handler**, 
 that filters for relevant events and re-routes them to a dedicated topic.
@@ -226,4 +227,4 @@ but remember, the **CDC Monolog Consumer** has to process all database changes.
 Executing any kind of complex action within the **CDC Monolog Consumer** can lead to a bottleneck.
 
 ## Proof of Concept
-- [ ] write this section / reference other doc
+This repository also includes a practical [proof of concept](proof_of_concept.md).
