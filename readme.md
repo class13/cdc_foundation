@@ -123,6 +123,9 @@ The best course of action is to work with Kafka Connect as little as possible,
 setting up a universal solution up once and then rarely touch it ever again.
 
 ## The CDC Foundation
+
+- [ ] Images goes here
+
 A simple universal CDC solution, involves a single Debezium connector, capturing all changes of the entire database.
 This connector writes those changes into a single Kafka topic (the **CDC Monolog**).   
 This is the constant part, that is rarely every changed.
@@ -137,6 +140,9 @@ This section is dedicated to describe how previously mentioned CDC use-cases,
 can be implemented on top of a **Debezium CDC Foundation**.
 
 ### General
+
+- [ ] Images goes here
+
 A Kafka consumer of the **CDC Monolog** has to process all changes of the database.  
 This is relatively expensive, therefore performance is a concern to prevent a bottleneck.
 
@@ -161,6 +167,9 @@ and therefore do not slow down processing of the underlying foundation.
 These **use-case consumers** do not even necessarily need to be implemented in the same service.
 
 ### Transactional Outbox Pattern
+
+- [ ] Images goes here
+
 Implementing a **Transactional Kafka Outbox** on top of the **CDC Foundation** is straight forward. 
 
 The service writes a message event into an **Outbox Table**.  
@@ -183,14 +192,19 @@ While a data warehouse is used as a specific exemple,the principles are still ap
 for duplicating data to any other system.
 
 #### Providing row-level events
+
+- [ ] Images goes here
+
 Capturing row-level changes and sending them to a **DWH (data warehouse)** is simple, 
 as the CDC Foundation already captures such events. 
 The events simply have to be re-routed to specific topics.
 
-- [ ] Images goes here
 A **DWH Sync Event Handler** subscribes to all relevant tables and re-routes the events into dedicated **DWH Topics**.
 
 #### Providing aggregates
+
+- [ ] Images goes here
+
 Sending enriched models, made up from data of multiple tables, is also possible.
  
 Events are not sent directly to the data warehouse, instead they are consumed with the **DWH Enrichment Consumer**, 
@@ -199,6 +213,9 @@ The **DWH Enrichment Consumer**, fetches all relevant enrichment data from the d
 This model is then sent to a new Kafka topic.
 
 ### Hooks
+
+- [ ] Images goes here
+
 Implementing hooks on top of the CDC Foundation involves implementing a **Hook Event Handler**, 
 that filters for relevant events and re-routes them to a dedicated topic.
 
